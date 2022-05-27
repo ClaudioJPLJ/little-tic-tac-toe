@@ -9,6 +9,9 @@ let wins = [
     [0,4,8],
     [2,4,6]
 ]
+let phrase
+let win
+
 function toPlace(){
     for (let i = 0;i < wins.length; i++){
         let arrayWins = wins[i] //receives the combinations
@@ -18,8 +21,9 @@ function toPlace(){
         let p3 = arrayWins[2]
 
         if (houses[p1] == houses[p2] && houses[p1] == houses[p3] && houses[p1] != ""){
+            win = true
+            draw = 0
             setTimeout(()=>{
-                let phrase = "Os coelhos venceram"
                 phrase = (playerTurn == 0)?"Os lobos venceram!":"Os coelhos venceram!"
 
                 alert(`${phrase} Clique 'OK' para reiniciar`) 
@@ -27,19 +31,20 @@ function toPlace(){
                     houses[count] = ""
                     document.body.getElementsByClassName("boxes")[count].style.background = "chocolate"
                     document.body.getElementsByClassName("boxes")[count].innerHTML = ""
+                }               
+            }, 210)
+        }setTimeout(()=>{ //timeOut not to draw and win in the last block
+                if (draw == 9 && !win){
+                    draw = 0
+                    setTimeout(()=>{
+                        alert("Empate! Clique 'OK' para reiniciar") 
+                        for (let count in houses){
+                            houses[count] = ""
+                            document.body.getElementsByClassName("boxes")[count].style.background = "chocolate"
+                            document.body.getElementsByClassName("boxes")[count].innerHTML = ""
+                        }                
+                    }, 215)
                 }
-                draw = 0
-            }, 210)
-        }else if (draw == 9){
-            draw = 0
-            setTimeout(()=>{
-                alert("Empate! Clique 'OK' para reiniciar") 
-                for (let count in houses){
-                    houses[count] = ""
-                    document.body.getElementsByClassName("boxes")[count].style.background = "chocolate"
-                    document.body.getElementsByClassName("boxes")[count].innerHTML = ""
-                }                
-            }, 210)
-        }
+            }, 50)
     }
 }

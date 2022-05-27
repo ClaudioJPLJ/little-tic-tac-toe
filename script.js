@@ -12,6 +12,7 @@ let houses = ["", "", "", "", "", "", "", "", ""] // array relative with the num
 function player (event){  
     //verify player turn 
     if (houses[event.target.id] == ''){
+        win = false
         if (playerTurn == 0){
             playerTurn = 1
             if (houses[event.target.id]== ""){ //checks if arrays is null for to plarce position elements
